@@ -11,7 +11,8 @@ A ASP.NET Core 2.0 REST API for a TODO application.
 
 
 ### Contact information
-*Contact* : Samuel Alves
+*Contact* : [Samuel Alves](www.linkedin.com/in/samuel-alves-923239145/)
+
 
 
 <a name="models"></a>
