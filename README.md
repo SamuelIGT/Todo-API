@@ -29,8 +29,8 @@ A ASP.NET Core 2.0 REST API for a TODO application.
 
 
 
-<a name="paths"></a>
-## Paths
+<a name="endpoints"></a>
+## Available Endpoints 
 
 <a name="apitodopost"></a>
 ### Create a new TODO.
