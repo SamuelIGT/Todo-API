@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -70,7 +71,7 @@ namespace TodoAPI.Controllers {
         /// <response code="201">Returns the todo item created</response>
         /// <response code="400">If the todo item is null</response>
         [ProducesResponseType(400)]
-        [ProducesResponseTypeAttribute(201)]
+        [ProducesResponseType(typeof(TodoItem), 201)]
         [Produces("application/json")]
         [HttpPost]
         public IActionResult Create([FromBody] TodoItem item) {
@@ -83,8 +84,19 @@ namespace TodoAPI.Controllers {
 
             return CreatedAtRoute("GetTodo", new { id = item.Id }, item);
         }
-
+        /// <summary>
+        /// Updates a todo item.
+        /// </summary>
+        /// <param name="id">TODO item ID</param>
+        /// <param name="item">Todo item</param>
+        /// <returns>No content</returns>
+        /// <response code="400">If the item passed is null or its id is different from the onde passed on the url.</response>
+        /// <response code="404">If no TODO item with the same id was found</response>
+        /// <response code="204">Updated with success</response>
         [HttpPut("{id}")]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(404)]
+        [ProducesResponseType(204)]
         public IActionResult Update(long id, [FromBody] TodoItem item) {
             if (item == null || item.Id != id) {
                 return BadRequest();
@@ -104,6 +116,15 @@ namespace TodoAPI.Controllers {
             return NoContent();
         }
 
+        /// <summary>
+        /// Deletes a TODO item.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>No content</returns>
+        /// <response code="404">If no TODO item with the same id was found</response>
+        /// <response code="204">Deleted with success</response>
+        [ProducesResponseType(404)]
+        [ProducesResponseType(204)]
         [HttpDelete("{id}")]
         public IActionResult Delete(long id) {
             var todo = _context.TodoItems.Find(id);
